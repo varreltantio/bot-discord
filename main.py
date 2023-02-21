@@ -2,8 +2,11 @@ import discord
 import os
 import requests
 import json
+from dotenv import load_dotenv
 
-client = discord.Client()
+load_dotenv()
+
+client = discord.Client(intents=discord.Intents.default())
 
 
 def get_quote():
@@ -30,8 +33,5 @@ async def on_message(message):
         quote = get_quote()
         await message.channel.send(quote)
 
-# with env
-# token = os.getenv("DISCORD_TOKEN")
-# client.run(token)
-
-client.run("ODI4MTI0NTYyMDI0OTU1OTI1.YGlBGQ.2c-wk0KnEjmp5sZnYi2ka-GFL0c")
+token = os.getenv("DISCORD_TOKEN")
+client.run(token)
