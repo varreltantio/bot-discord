@@ -3,8 +3,11 @@ import os
 import requests
 import json
 from dotenv import load_dotenv
+from flask import Flask
 
 load_dotenv()
+
+app = Flask(__name__)
 
 client = discord.Client(intents=discord.Intents.default())
 
@@ -33,5 +36,9 @@ async def on_message(message):
         quote = get_quote()
         await message.channel.send(quote)
 
-token = os.getenv("DISCORD_TOKEN")
-client.run(token)
+@app.route("/")
+def home():
+    token = os.getenv("DISCORD_TOKEN")
+    client.run(token)
+
+app.run(debug=True)
