@@ -3,14 +3,10 @@ import os
 import requests
 import json
 from dotenv import load_dotenv
-from flask import Flask
 
 load_dotenv()
 
-app = Flask(__name__)
-
 client = discord.Client(intents=discord.Intents.default())
-
 
 def get_quote():
     response = requests.get("https://zenquotes.io/api/random")
@@ -36,9 +32,6 @@ async def on_message(message):
         quote = get_quote()
         await message.channel.send(quote)
 
-@app.route("/")
-def home():
-    token = os.getenv("DISCORD_TOKEN")
-    client.run(token)
 
-app.run(debug=True)
+token = os.getenv("DISCORD_TOKEN")
+client.run(token)
